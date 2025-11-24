@@ -8,7 +8,7 @@ html {
     --color-bg-alt: #141820;
     --color-text: #e6e8ee;
     --color-text-muted: #9aa0a6;
-    --color-primary: #6ea8fe;
+    --color-primary: #14315A;
     --color-accent: #22b538;
     --color-border: #222733;
     --color-card: #171b23;
@@ -95,7 +95,7 @@ html {
   
   /* Sections */
   .section { padding: 60px 0; border-top: 1px solid var(--color-border); }
-  .section-title { font-size: 28px; margin: 0 0 24px; }
+  .section-title { font-size: 28px; margin: 10px 0 24px; }
 
   /* Education */
   .education-card {
@@ -312,15 +312,6 @@ html {
     background: var(--color-card); color: var(--color-text); font-weight: 600;
   }
   
-  /* About */
-  .about-section {
-    display: grid; gap: 20px; grid-template-columns: 1fr;
-  }
-  @media (min-width: 800px) {
-    .about-section { grid-template-columns: 1.2fr 0.8fr; align-items: start; }
-  }
-  .about-bio { color: var(--color-text-muted); }
-  
   /* Contact */
   .contact-form {
     display: grid; gap: 14px; max-width: 640px;
@@ -330,8 +321,3 @@ html {
     border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-text);
   }
   textarea.form-input { min-height: 120px; resize: vertical; }
-  
-  /* Footer */
-  .site-footer {
-    padding: 40px 0; border-top: 1px solid var(--color-border); color: var(--color-text-muted); text-align: center;
-  }  

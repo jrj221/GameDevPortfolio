@@ -25,6 +25,8 @@ function TicTacToeSquared() {
 
   return ( 
     <>
+      <title>Ultimate Tic Tac Toe</title>
+      <link rel="icon" type="image/png" href="/tictactoe.png" />
       {/* Header */}
       <header className="site-header">
         <div className="container navbar" role="navigation" aria-label="Main">

@@ -13,9 +13,11 @@ const Portfolio = () => {
             <Link to="/"><span>&lt; Jack Johnson /&gt;</span></Link>
           </div>
           <nav className="nav-links">
+            <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a>
+            <a href="#education">Education</a>
+            <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#skills">Skills</a>
-            <a href="#about">About</a>
             <p> | </p>
             <a href="#contact">Contact</a>
           </nav>
@@ -32,23 +34,23 @@ const Portfolio = () => {
         </section>
 
         {/* Education  */}
-        <section class="section container education-section" id="education">
-        <h2 class="section-title">Education</h2>
-        <div class="education-card">
+        <section className="section container education-section" id="education">
+        <h2 className="section-title">Education</h2>
+        <div className="education-card">
           {/* <!-- Left side: logo --> */}
-          <div class="edu-logo">
+          <div className="edu-logo">
             <img src="byuLogo.png" alt="Brigham Young University logo" />
           </div>
 
           {/* <!-- Right side: details --> */}
-          <div class="edu-details">
-            <h3 class="edu-school">Brigham Young University — Expected May 2027</h3>
-            <em><p class="edu-location">Provo, UT</p></em>
-            <p class="edu-degree">
+          <div className="edu-details">
+            <h3 className="edu-school">Brigham Young University — Expected May 2027</h3>
+            <em><p className="edu-location">Provo, UT</p></em>
+            <p className="edu-degree">
               Computer Science
             </p>
-            <p class="edu-gpa"><strong>GPA:</strong> 3.97</p>
-            <div class="edu-coursework">
+            <p className="edu-gpa"><strong>GPA:</strong> 3.97</p>
+            <div className="edu-coursework">
               <strong>Relevant coursework:</strong>
               <ul>
                 <li>Web Programming</li>
@@ -56,10 +58,10 @@ const Portfolio = () => {
                 <li>Software Design</li>
               </ul>
             </div>
-            <p class="edu-awards">
+            <p className="edu-awards">
               <strong>Awards:</strong> BYU Academic Scholarship
             </p>
-            <p class="edu-clubs">
+            <p className="edu-clubs">
               <strong>Clubs:</strong> BYU Developers Club
             </p>
           </div>
@@ -68,39 +70,39 @@ const Portfolio = () => {
 
 
         {/* Experience */}
-        <section class="section container experience-section" id="experience">
-        <h2 class="section-title">Experience</h2>
-        <div class="experience-grid">
+        <section className="section container experience-section" id="experience">
+        <h2 className="section-title">Experience</h2>
+        <div className="experience-grid">
           
-          <article class="experience-card">
+          <article className="experience-card">
             {/* <!-- Left: details --> */}
-            <div class="exp-details-block">
+            <div className="exp-details-block">
               <h3>Computer Science Teaching Assistant</h3>
-              <p class="exp-company">Brigham Young University · September 2025 – Present</p>
-              <ul class="exp-details">
+              <p className="exp-company">Brigham Young University · September 2025 – Present</p>
+              <ul className="exp-details">
                 <li>Improved student comprehension by implementing innovative teaching methods and incorporating visual aids in <strong>bi-weekly</strong> lessons of <strong>30+ students</strong>.</li>
                 <li>Provided one‑on‑one debugging support to students, improving their understanding of programming concepts <strong>by 50%</strong>.</li>
                 <li>Provided timely feedback to students, <strong>grading 100+ assignments weekly.</strong></li>
               </ul>
             </div>
             {/* <!-- Right: image --> */}
-            <div class="exp-logo">
+            <div className="exp-logo">
               <img src="byuLogo.png" alt="BYU logo" />
             </div>
           </article>
 
-          <article class="experience-card">
+          <article className="experience-card">
             {/* <!-- Left: details --> */}
-            <div class="exp-details-block">
+            <div className="exp-details-block">
               <h3>Supervisor</h3>
-              <p class="exp-company">Papa Murphy's Pizza · June 2022 - August 2023</p>
-              <ul class="exp-details">
+              <p className="exp-company">Papa Murphy's Pizza · June 2022 - August 2023</p>
+              <ul className="exp-details">
                 <li>Resolved <strong>30+</strong> customer inquiries daily, achieving a 40% increase in customer satisfaction and demonstrating strong communication under pressure.</li>
                 <li>Led and mentored a <strong>team of 6</strong>, improving onboarding efficiency by <strong>30%</strong> and fostering strong collaboration.</li>
               </ul>
             </div>
             {/* <!-- Right: image --> */}
-            <div class="exp-logo">
+            <div className="exp-logo">
               <img src="papaMurphysLogo.png" alt="Papa Murphy's Pizza logo" />
             </div>
           </article>
@@ -216,6 +218,7 @@ const Portfolio = () => {
               <Link
                 className="btn"
                 to="/tic-tac-toe-squared"
+                target="_blank"
               >
                 View in Browser
               </Link>
@@ -236,27 +239,6 @@ const Portfolio = () => {
             <span className="skill-item">Testing: Jest, Playwright</span>
             <span className="skill-item">DevOps: Vite, Webpack, CI/CD</span>
           </div>
-        </section>
-
-        {/* About */}
-        <section className="section container about-section" id="about">
-          <div>
-            <h2 className="section-title">About me</h2>
-            <p className="about-bio">
-              I’m a developer who blends engineering discipline with product sense.
-              I care about clarity, semantic HTML, and performance budgets.
-            </p>
-          </div>
-          <aside className="project-card">
-            <h3>Quick info</h3>
-            <p><strong>Location:</strong> Provo, UT</p>
-            <p><strong>Focus:</strong> Frontend Engineering</p>
-            <p><strong>Available for:</strong> Freelance & full‑time</p>
-            <div className="project-tags">
-              <span className="project-tag">Remote‑friendly</span>
-              <span className="project-tag">Open to collaboration</span>
-            </div>
-          </aside>
         </section>
 
         {/* Contact */}
@@ -289,13 +271,6 @@ const Portfolio = () => {
           </form>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="container">
-          © {new Date().getFullYear()} Your Name · Built with React & a refined dark theme
-        </div>
-      </footer>
     </div>
   );
 };
