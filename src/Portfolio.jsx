@@ -2,18 +2,19 @@ import React from "react";
 import "./Portfolio.css";
 import { Link } from "react-router-dom";
 
+
 const Portfolio = () => {
   return (
     <div>
       {/* Header */}
       <header className="site-header">
-        <div className="container navbar" role="navigation" aria-label="Main">
+        <div className="container navbar" role="navigation" aria-label="Main">  
           <div className="brand">
             <span className="brand-dot" aria-hidden="true"></span>
-            <Link to="/"><span>&lt; Jack Johnson /&gt;</span></Link>
+            <a href="#home"><span>&lt; Jack Johnson /&gt;</span></a>
           </div>
           <nav className="nav-links">
-            <a href="/resume.pdf" target="_blank" rel="noopener">Resume</a>
+            <a href="/Jack Johnson Resume.pdf" target="_blank">Resume</a>
             <a href="#education">Education</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
@@ -80,7 +81,7 @@ const Portfolio = () => {
               <h3>Computer Science Teaching Assistant</h3>
               <p className="exp-company">Brigham Young University · September 2025 – Present</p>
               <ul className="exp-details">
-                <li>Improved student comprehension by implementing innovative teaching methods and incorporating visual aids in <strong>bi-weekly</strong> lessons of <strong>30+ students</strong>.</li>
+                <li>Improved student comprehension by implementing innovative teaching methods and incorporating visual aids in <strong>bi-weekly</strong> lessons of <strong>35+ students</strong>.</li>
                 <li>Provided one‑on‑one debugging support to students, improving their understanding of programming concepts <strong>by 50%</strong>.</li>
                 <li>Provided timely feedback to students, <strong>grading 100+ assignments weekly.</strong></li>
               </ul>
@@ -97,7 +98,7 @@ const Portfolio = () => {
               <h3>Supervisor</h3>
               <p className="exp-company">Papa Murphy's Pizza · June 2022 - August 2023</p>
               <ul className="exp-details">
-                <li>Resolved <strong>30+</strong> customer inquiries daily, achieving a 40% increase in customer satisfaction and demonstrating strong communication under pressure.</li>
+                <li>Resolved <strong>30+</strong> customer inquiries daily, achieving a <strong>40% increase</strong> in customer satisfaction and demonstrating strong communication under pressure.</li>
                 <li>Led and mentored a <strong>team of 6</strong>, improving onboarding efficiency by <strong>30%</strong> and fostering strong collaboration.</li>
               </ul>
             </div>
