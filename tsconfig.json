@@ -43,5 +43,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": [ "src", "scripts/BucketUpload.ts" ]
+  "include": [ "src", "src/scripts/BucketUpload.ts" ]
 }

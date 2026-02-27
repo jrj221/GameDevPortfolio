@@ -2,12 +2,12 @@
     "compilerOptions": {
       "target": "esnext",
       "module": "commonjs",
-      "rootDir": "scripts",
+      "rootDir": "src/scripts",
       "outDir": "scripts-dist",
       "types": ["node"],
       "esModuleInterop": true,
       "strict": true
     },
-    "include": ["scripts"]
+    "include": ["src/scripts"]
   }
   

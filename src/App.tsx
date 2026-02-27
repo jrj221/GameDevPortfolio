@@ -1,4 +1,4 @@
-import Portfolio from "./Portfolio";
+import Portfolio from "./components/Portfolio";
 import { Route, Routes } from "react-router-dom";
 import ScrollController from "./ScrollController";
 

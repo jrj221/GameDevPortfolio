@@ -37,32 +37,51 @@ const fs = __importStar(require("fs"));
 const client_s3_1 = require("@aws-sdk/client-s3");
 const path_1 = require("path");
 const s3Client = new client_s3_1.S3Client({ region: "us-west-1" });
-const localDir = process.argv[2] ?? "dist";
+const localDir = "dist";
 const bucketName = "jack-johnson-portfolio";
-uploadDirectory(localDir, bucketName);
+// Map file extensions to correct Content-Type
+const contentTypeMap = {
+    ".html": "text/html",
+    ".css": "text/css",
+    ".js": "application/javascript",
+    ".ico": "image/x-icon",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".svg": "image/svg+xml",
+};
+function getContentType(filename) {
+    for (const ext in contentTypeMap) {
+        if (filename.endsWith(ext))
+            return contentTypeMap[ext];
+    }
+    return "binary/octet-stream"; // fallback
+}
 async function uploadDirectory(localDir, bucketName, prefix = "") {
     const entries = fs.readdirSync(localDir);
     for (const entry of entries) {
         const fullPath = (0, path_1.join)(localDir, entry);
-        const stats = fs.statSync(fullPath); // Returns info about the file
+        const stats = fs.statSync(fullPath);
         if (stats.isDirectory()) {
-            await uploadDirectory(fullPath, bucketName, `${prefix}${entry}/`); // Recurse into the next directory
+            await uploadDirectory(fullPath, bucketName, `${prefix}${entry}/`);
         }
         else {
             try {
                 const key = `${prefix}${entry}`;
+                const contentType = getContentType(key);
                 const params = {
-                    Body: fs.createReadStream(fullPath), // file stream
-                    Bucket: bucketName, // bucket name
-                    Key: key, // file name
+                    Bucket: bucketName,
+                    Key: key,
+                    Body: fs.createReadStream(fullPath),
+                    ContentType: contentType, // Set the correct Content-Type on upload
                 };
-                const command = new client_s3_1.PutObjectCommand(params);
-                const response = await s3Client.send(command);
-                console.log("File upload successful with ", response.$metadata.httpStatusCode);
+                const uploadResponse = await s3Client.send(new client_s3_1.PutObjectCommand(params));
+                console.log(`Uploaded ${key} with Content-Type "${contentType}" (HTTP: ${uploadResponse.$metadata.httpStatusCode})`);
             }
             catch (error) {
-                console.log(error);
+                console.error(`Error uploading ${entry}:`, error);
             }
         }
     }
 }
+// Start upload
+uploadDirectory(localDir, bucketName).catch(console.error);
