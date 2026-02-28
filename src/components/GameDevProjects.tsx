@@ -37,9 +37,9 @@ const GameDevProjects = () => {
 						githubLink="https://github.com/jrj221/Fishing-for-Love"
 						playLink="https://jrj221.itch.io/fishing-for-love"
 						images={[
-							"../public/images/FishingForLove/gameplay.png",
-							"../public/images/FishingForLove/difficultySelect.png",
-							"../public/images/FishingForLove/mainMenu.png",
+							"images/FishingForLove/gameplay.png",
+							"images/FishingForLove/difficultySelect.png",
+							"images/FishingForLove/mainMenu.png",
 						]}
 					/>
 				</div>
