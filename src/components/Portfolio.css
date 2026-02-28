@@ -85,13 +85,38 @@ html {
   
   /* Buttons */
   .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 12px 18px; border-radius: 10px; border: 1px solid var(--color-border);
-    background: var(--color-card); color: var(--color-text); font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-text);
+    font-weight: 600;
     box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
   }
-  .btn-primary { background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); border: none; }
-  .btn:hover { transform: translateY(-1px); transition: transform 140ms ease; }
+  
+  /* Primary button gradient */
+  .btn-primary {
+    background: var(--color-border);
+    border: none;
+  }
+  
+  /* Hover effect */
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl); /* slightly larger shadow */
+  }
+  
+  /* Active / clicked effect */
+  .btn:active {
+    transform: translateY(1px) scale(0.97); /* press down + slight shrink */
+    box-shadow: var(--shadow-md); /* smaller shadow to look pressed */
+    filter: brightness(0.9); /* darken a little */
+  }
   
   /* Sections */
   .section { padding: 60px 0; border-top: 1px solid var(--color-border); }
