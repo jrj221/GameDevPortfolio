@@ -304,7 +304,7 @@ html {
   }
   
   .project-card p {
-    margin: 0 16px 16px;
+    margin: 0 16px;
     color: var(--color-text-muted);
     height: 80px;
   }
@@ -346,3 +346,63 @@ html {
     border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-text);
   }
   textarea.form-input { min-height: 120px; resize: vertical; }
+
+
+  /* Carausel */
+  .carousel {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 16px auto 0;
+    border: var(--color-border) 3px solid;
+    border-radius: 8px;
+  }
+  
+  .carousel img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-bg);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .carousel-btn.left {
+    left: 10px;
+  }
+  
+  .carousel-btn.right {
+    right: 10px;
+  }
+
+  .project-features {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-card);
+    border-radius: 8px;
+  }
+  
+  .project-features h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .project-features ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+  
+  .project-features li {
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+  }
