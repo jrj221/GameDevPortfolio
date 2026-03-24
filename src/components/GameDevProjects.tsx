@@ -93,8 +93,16 @@ const projects: Project[] = [
 			"Slope & Stair Detection",
 			"Camera Smoothing",
 		],
-		tags: ["Unity", "C#", "Level Design", "Solo Project"],
-		images: ["images/BankEscape/gameplay.png"],
+		tags: ["Unity", "Solo Project"],
+		images: [
+			"media/BankEscape/first_room.png",
+			"media/BankEscape/long_wallrun_room.png",
+			"media/BankEscape/moving_platform_room.png",
+			"media/BankEscape/curved_wallrun_room.png",
+			"media/BankEscape/full_run.mov",
+		],
+		githubLink: "https://github.com/jrj221/Unity_Movement",
+		playLink: "https://jrj221.itch.io/bank-escape",
 	},
 	{
 		title: "Fishing for Love",
@@ -109,9 +117,9 @@ const projects: Project[] = [
 		githubLink: "https://github.com/jrj221/Fishing-for-Love",
 		playLink: "https://jrj221.itch.io/fishing-for-love",
 		images: [
-			"images/FishingForLove/gameplay.png",
-			"images/FishingForLove/difficultySelect.png",
-			"images/FishingForLove/mainMenu.png",
+			"media/FishingForLove/gameplay.png",
+			"media/FishingForLove/difficultySelect.png",
+			"media/FishingForLove/mainMenu.png",
 		],
 	},
 ];
@@ -139,22 +147,31 @@ const GameDevProjects = () => {
 		setSelectedProject(null);
 	};
 
+	const isVideo = (url: string) => {
+		const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
+		return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+	};
+
 	return (
 		<>
 			{/* Game Dev Header */}
-			<div className="container navbar" role="navigation" aria-label="Main">
-				<div className="brand">
-					<span className="brand-dot" aria-hidden="true"></span>
-					<a href="/">
-						<span>&lt; Jack Johnson /&gt;</span>
-					</a>
+			<header className="site-header">
+				<div className="container navbar" role="navigation" aria-label="Main">
+					<div className="brand">
+						<span className="brand-dot" aria-hidden="true"></span>
+						<a href="/">
+							<span>&lt; Jack Johnson /&gt;</span>
+						</a>
+					</div>
 				</div>
-			</div>
+			</header>
 
 			{/* Game Dev Projects */}
-			<section className="section container" id="projects">
-				<h2 className="section-title">Game Development Projects</h2>
-				<div className="project-grid">
+			<section className="section container" id="projects" style={{ paddingTop: "80px" }}>
+				<h2 className="section-title" style={{ fontSize: "42px", marginBottom: "40px" }}>
+					Game Development Projects
+				</h2>
+				<div className="project-grid" style={{ gridTemplateColumns: "1fr" }}>
 					{projects.map((project, index) => (
 						<GameDevProjectCard key={index} project={project} onClick={() => openPopup(project)} />
 					))}
@@ -178,7 +195,27 @@ const GameDevProjects = () => {
 									<button className="carousel-btn left" onClick={prevImage}>
 										&#10094;
 									</button>
-									<img src={selectedProject.images[currentIndex]} alt={selectedProject.title} />
+									{isVideo(selectedProject.images[currentIndex] || "") ? (
+										<video
+											key={selectedProject.images[currentIndex] || "video-default"}
+											src={selectedProject.images[currentIndex] || ""}
+											controls
+											muted
+											loop
+											playsInline
+											style={{
+												width: "100%",
+												display: "block",
+												borderRadius: "8px",
+												background: "#000",
+											}}
+										/>
+									) : (
+										<img
+											src={selectedProject.images[currentIndex] || ""}
+											alt={selectedProject.title}
+										/>
+									)}
 									<button className="carousel-btn right" onClick={nextImage}>
 										&#10095;
 									</button>
@@ -206,6 +243,32 @@ const GameDevProjects = () => {
 											Play on itch.io
 										</a>
 									)}
+								</div>
+
+								<div
+									className="project-tags"
+									style={{
+										display: "flex",
+										flexWrap: "wrap",
+										gap: "8px",
+										marginTop: "24px",
+									}}
+								>
+									{selectedProject.tags.map((tag) => (
+										<span
+											key={tag}
+											className="project-tag"
+											style={{
+												background: "var(--color-bg-alt)",
+												padding: "6px 12px",
+												borderRadius: "var(--radius-sm)",
+												fontSize: "14px",
+												color: "var(--color-text)",
+											}}
+										>
+											{tag}
+										</span>
+									))}
 								</div>
 							</div>
 

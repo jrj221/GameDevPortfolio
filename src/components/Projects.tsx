@@ -6,7 +6,7 @@ const Projects = () => {
 			<h2 className="section-title">Projects</h2>
 			<div className="project-grid">
 				<article className="project-card">
-					<img src="images/chess.png" alt="Chess" />
+					<img src="media/chess.png" alt="Chess" />
 					<h3>Chess Game</h3>
 					<p>
 						Features a networked client-server architecture, with a command-line client, a server to manage
@@ -25,7 +25,7 @@ const Projects = () => {
 				</article>
 
 				<article className="project-card">
-					<img src="images/imageCompression.png" alt="Image Compression" />
+					<img src="media/imageCompression.png" alt="Image Compression" />
 					<h3>PNG Image Compression</h3>
 					<p>
 						Uses pixel approximation to optimize the .PNG deflation algorithm. On large files, managed to
@@ -48,7 +48,7 @@ const Projects = () => {
 				</article>
 
 				<article className="project-card">
-					<img src="images/cougsConnect.png" alt="Cougs Connect Social Media Page" />
+					<img src="media/cougsConnect.png" alt="Cougs Connect Social Media Page" />
 					<h3>CougsConnect - Social Media Web App</h3>
 					<p>
 						Developed a social media web app in a <strong>team of 3</strong> during an{" "}
@@ -68,7 +68,7 @@ const Projects = () => {
 				</article>
 
 				<article className="project-card">
-					<img src="images/tictactoe.png" alt="Ultimate Tic Tac Toe" />
+					<img src="media/tictactoe.png" alt="Ultimate Tic Tac Toe" />
 					<h3>Ultimate Tic Tac Toe</h3>
 					<p>
 						Web game where you have to win three entire games of Tic-Tac-Toe in a valid order to win the
