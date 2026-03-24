@@ -552,6 +552,29 @@ textarea.form-input {
 	overflow-y: auto;
 	padding-right: 20px;
 	color: var(--color-text-muted);
+
+	/* Custom Scrollbar */
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-border) transparent;
+}
+
+.project-popup-right::-webkit-scrollbar {
+	width: 8px;
+}
+
+.project-popup-right::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.project-popup-right::-webkit-scrollbar-thumb {
+	background-color: var(--color-border);
+	border-radius: 20px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+
+.project-popup-right::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-accent);
 }
 
 .project-popup-right h3 {
