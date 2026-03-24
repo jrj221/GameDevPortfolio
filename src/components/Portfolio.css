@@ -275,8 +275,8 @@ html {
   /* Projects */
   .project-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* two cards per row */
-    gap: 20px;
+    grid-template-columns: 1fr; /* 1 card per row due to sidebars */
+    gap: 30px;
   }
   
   .project-card {
@@ -406,3 +406,91 @@ html {
     margin-bottom: 0.3rem;
     font-size: 0.95rem;
   }
+
+/* Project Popup */
+.project-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 40px;
+}
+
+.project-popup-content {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-width: 1200px;
+  width: 100%;
+  height: 85vh; /* Fixed height for scrolling inner content */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.project-popup-split {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  height: 100%;
+  padding: 40px;
+  overflow: hidden; /* Contains the children */
+}
+
+.project-popup-left {
+  flex: 0 0 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-popup-title {
+  margin: 0 0 24px 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.project-popup-right {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 20px;
+  color: var(--color-text-muted);
+}
+
+.project-popup-right h3 {
+  color: var(--color-text);
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+.project-popup-right h3:first-child {
+  margin-top: 0;
+}
+
+.project-popup-right p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}

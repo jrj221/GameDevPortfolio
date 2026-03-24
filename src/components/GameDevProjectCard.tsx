@@ -1,64 +1,43 @@
-import { useState } from "react";
+import { Project } from "./GameDevProjects";
 
 interface Props {
-	title: string;
-	description: string;
-	features: string[];
-	tags: string[];
-	githubLink: string;
-	playLink?: string;
-	images: string[];
+	project: Project;
+	onClick: () => void;
 }
 
-function GameDevProjectCard(props: Props) {
-	const [currentIndex, setCurrentIndex] = useState(0);
-
-	const prevImage = () => {
-		setCurrentIndex((prev) => (prev === 0 ? props.images.length - 1 : prev - 1));
-	};
-
-	const nextImage = () => {
-		setCurrentIndex((prev) => (prev === props.images.length - 1 ? 0 : prev + 1));
-	};
-
+function GameDevProjectCard({ project, onClick }: Props) {
 	return (
-		<article className="project-card">
-			<div className="carousel">
-				<button className="carousel-btn left" onClick={prevImage}>
-					&#10094;
-				</button>
-				<img src={props.images[currentIndex]} alt={props.title} />
-				<button className="carousel-btn right" onClick={nextImage}>
-					&#10095;
-				</button>
+		<article className="project-card" onClick={onClick} style={{ cursor: "pointer", display: "flex", flexDirection: "row", alignItems: "stretch" }}>
+			<div className="project-card-main" style={{ flex: 1 }}>
+				<img src={project.images[0]} alt={project.title} style={{ width: "100%", height: "auto", aspectRatio: "16/9", objectFit: "cover", display: "block" }} />
+				<h3 style={{ fontSize: "24px", margin: "20px" }}>{project.title}</h3>
 			</div>
-			<h3>{props.title}</h3>
-			<p>{props.description}</p>
-			<div className="project-features">
-				<h4>Features / Skills Learned:</h4>
-				<ul>
-					{props.features.map((feature) => (
-						<li key={feature}>{feature}</li>
+			
+			<div className="project-card-sidebar" style={{ 
+				width: "300px", 
+				borderLeft: "1px solid var(--color-border)", 
+				padding: "20px", 
+				background: "var(--color-bg-alt)", 
+				flexShrink: 0,
+				display: "flex",
+				flexDirection: "column"
+			}}>
+				<div className="project-features" style={{ flex: 1, padding: 0, marginBottom: "20px", background: "transparent" }}>
+					<h4 style={{ margin: "0 0 12px 0", fontSize: "16px", color: "var(--color-text)" }}>Technical Features:</h4>
+					<ul style={{ paddingLeft: "20px", margin: "0 0 24px 0" }}>
+						{project.features.map((feature) => (
+							<li key={feature} style={{ marginBottom: "8px", fontSize: "0.95rem", color: "var(--color-text-muted)" }}>{feature}</li>
+						))}
+					</ul>
+				</div>
+				
+				<div className="project-tags" style={{ margin: 0 }}>
+					{project.tags.map((tag) => (
+						<span key={tag} className="project-tag" style={{ display: "inline-block", marginBottom: "8px", marginRight: "8px" }}>
+							{tag}
+						</span>
 					))}
-				</ul>
-			</div>
-
-			<div className="project-tags">
-				{props.tags.map((tag) => (
-					<span key={tag} className="project-tag">
-						{tag}
-					</span>
-				))}
-			</div>
-			<div className="project-actions">
-				<a className="btn" href={props.githubLink} target="_blank" rel="noopener noreferrer">
-					View on GitHub
-				</a>
-				{!!props.playLink && (
-					<a className="btn" href={props.playLink} target="_blank" rel="noopener noreferrer">
-						Play on itch.io
-					</a>
-				)}
+				</div>
 			</div>
 		</article>
 	);
