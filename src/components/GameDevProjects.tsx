@@ -84,6 +84,7 @@ const projects: Project[] = [
 			"media/BuildingBusters/building_busters_2.png",
 			"media/BuildingBusters/building_busters_3.png",
 			"media/BuildingBusters/building_busters_4.png",
+			"media/BuildingBusters/building_busters_gameplay.mp4",
 		],
 	},
 	{
