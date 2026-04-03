@@ -27,7 +27,7 @@ const Experience = () => {
 					</div>
 					{/* <!-- Right: image --> */}
 					<div className="exp-logo">
-						<img src="media/byuLogo.png" alt="BYU logo" />
+						<img src="media/GeneralPortolio/byuLogo.png" alt="BYU logo" />
 					</div>
 				</article>
 
@@ -50,7 +50,7 @@ const Experience = () => {
 					</div>
 					{/* <!-- Right: image --> */}
 					<div className="exp-logo">
-						<img src="media/papaMurphysLogo.png" alt="Papa Murphy's Pizza logo" />
+						<img src="media/GeneralPortolio/papaMurphysLogo.png" alt="Papa Murphy's Pizza logo" />
 					</div>
 				</article>
 			</div>

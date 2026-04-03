@@ -13,6 +13,80 @@ export interface Project {
 
 const projects: Project[] = [
 	{
+		title: "Building Busters",
+		description: (
+			<div className="project-description-html">
+				<h3 style={{ textAlign: "center" }}>Project Overview</h3>
+				<p>
+					I participated in Jerbob’s Silly Game Jam, where the theme was “Go to Town.” After several hours of
+					brainstorming, our team settled on a playful concept: a once‑peaceful town where every building has
+					come alive as a monster. Players control Jerome, a construction worker who must calm each building
+					by throwing the correct furniture back at it, restoring order one structure at a time.
+				</p>
+
+				<h3 style={{ textAlign: "center" }}>Team Collaboration and Decision-Making</h3>
+				<p>
+					This was my first time working on a game development team rather than building solo projects. Early
+					on, we had disagreements about whether the idea was feasible and fun. We worked through those
+					concerns by openly discussing pros and cons, sharing perspectives, and ultimately voting on the
+					direction. That process taught me how valuable communication is when aligning a team around a shared
+					vision.
+				</p>
+				<p>
+					Throughout development, we occasionally struggled with unspoken assumptions—different team members
+					sometimes imagined mechanics or features differently. Those moments highlighted the importance of
+					explicit communication,{" "}
+					<a
+						href="/media/PDF/BuildingBusters-GDD.pdf"
+						target="_blank"
+						style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}
+					>
+						documentation
+					</a>
+					, and confirming understanding before implementing features.
+				</p>
+
+				<h3 style={{ textAlign: "center" }}>Technical Contributions</h3>
+				<p>
+					I served as one of two programmers on the team. My main responsibilities included:
+					<br />• Character movement and camera control for Jerome
+					<br />• Animator setup, including wiring prefabs to their state machines
+					<br />• Bug fixing across gameplay and scene logic
+					<br />• Level assembly, where I built the final environment using prefabs created by the team
+				</p>
+				<p>
+					Working alongside a more experienced developer pushed me to improve quickly. Some of my work was
+					reworked or optimized, which was humbling at times, but I treated it as an opportunity to learn
+					better architectural patterns, cleaner code practices, and more scalable approaches to Unity
+					development.
+				</p>
+
+				<h3 style={{ textAlign: "center" }}>Personal Growth</h3>
+				<p>
+					This project was a major step in my development as a game programmer. I learned how to:
+					<br />• Communicate effectively within a team
+					<br />• Break down tasks and coordinate responsibilities
+					<br />• Accept and integrate feedback from more experienced teammates
+					<br />• Apply new architectural patterns and Unity workflows
+					<br />• Balance speed with maintainability in a jam environment
+					<br />
+					The experience strengthened both my technical skills and my ability to collaborate under time
+					pressure.
+				</p>
+			</div>
+		),
+		features: ["Team Collaboration", "Top-down Cursor Rotation", "Level Assembly"],
+		tags: ["Unity", "Game Jam", "Team"],
+		playLink: "https://zearoh.itch.io/buildingbusters",
+		images: [
+			"media/BuildingBusters/building_busters_0.png",
+			"media/BuildingBusters/building_busters_1.png",
+			"media/BuildingBusters/building_busters_2.png",
+			"media/BuildingBusters/building_busters_3.png",
+			"media/BuildingBusters/building_busters_4.png",
+		],
+	},
+	{
 		title: "Bank Escape!",
 		description: (
 			<div className="project-description-html">

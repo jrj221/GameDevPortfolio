@@ -12,7 +12,7 @@ const Header = () => {
 					</a>
 				</div>
 				<nav className="nav-links">
-					<a href="/Jack Johnson Resume.pdf" target="_blank">
+					<a href="/media/PDF/Jack Johnson Resume.pdf" target="_blank">
 						Resume
 					</a>
 					<a href="/#education">Education</a>

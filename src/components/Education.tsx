@@ -7,7 +7,7 @@ const Education = () => {
 			<div className="education-card">
 				{/* <!-- Left side: logo --> */}
 				<div className="edu-logo">
-					<img src="media/byuLogo.png" alt="Brigham Young University logo" />
+					<img src="media/GeneralPortolio/byuLogo.png" alt="Brigham Young University logo" />
 				</div>
 
 				{/* <!-- Right side: details --> */}
