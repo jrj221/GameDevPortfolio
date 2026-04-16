@@ -92,6 +92,25 @@ const Projects = () => {
 						</a>
 					</div>
 				</article>
+
+				<article className="project-card">
+					<img src="media/GeneralPortolio/agenda.png" alt="Agenda" />
+					<h3>Agenda</h3>
+					<p>
+						A smart, AI-integrated productivity tool designed to streamline schedule management and task
+						prioritization.
+					</p>
+					<div className="project-tags">
+						<span className="project-tag">React</span>
+						<span className="project-tag">TypeScript</span>
+						<span className="project-tag">Built with AI</span>
+					</div>
+					<div className="project-actions">
+						<a className="btn" href="/agenda/" target="_blank">
+							View in Browser
+						</a>
+					</div>
+				</article>
 			</div>
 		</section>
 	);
