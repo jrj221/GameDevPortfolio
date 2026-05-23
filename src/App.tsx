@@ -2,6 +2,8 @@ import Portfolio from "./components/Portfolio";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ScrollController from "./ScrollController";
 import GameDevProjects from "./components/GameDevProjects";
+import BudgetAppPrivacyPolicy from "./components/BudgetAppPrivacyPolicy";
+import ScorekeeperAppPrivacyPolicy from "./components/ScorekeeperAppPrivacyPolicy";
 import { useEffect } from "react";
 
 /**
@@ -27,7 +29,9 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Portfolio />} />
 				<Route path="/gamedev" element={<GameDevProjects />} />
-				
+				<Route path="/budget_app/privacy_policy" element={<BudgetAppPrivacyPolicy />} />
+				<Route path="/scorekeeper_app/privacy_policy" element={<ScorekeeperAppPrivacyPolicy />} />
+
 				{/* Sub-projects deployed to S3 sub-folders */}
 				<Route path="/agenda" element={<HardRedirect to="/agenda/" />} />
 				<Route path="/chess" element={<HardRedirect to="/chess/" />} />
