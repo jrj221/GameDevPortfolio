@@ -1,0 +1,786 @@
+/* ===== Project Contributions page ===== */
+
+.contrib-page {
+	height: 100vh;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	padding-top: var(--header-height);
+	/* The page itself never scrolls — only the open project's entries do. */
+	overflow: hidden;
+}
+
+/* ---- Top section: title + card row ---- */
+.contrib-top {
+	flex: 0 0 auto;
+	padding: 32px 20px 16px;
+}
+
+.contrib-title {
+	max-width: var(--max-width);
+	margin: 0 auto 24px;
+	font-size: 38px;
+	color: var(--color-text);
+}
+
+/* ---- Carousel (paged project bar) ---- */
+.contrib-carousel {
+	/* Tile geometry shared between the viewport width and the track translate */
+	--tile-w: 200px;
+	--tile-gap: 16px;
+	--visible-tiles: 4;
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.contrib-carousel-viewport {
+	/* Exactly enough room for `--visible-tiles` tiles + the gaps between them */
+	width: calc(var(--visible-tiles) * var(--tile-w) + (var(--visible-tiles) - 1) * var(--tile-gap));
+	max-width: 100%;
+	overflow: hidden;
+	/* Vertical padding keeps the cards' hover lift + shadow from being clipped */
+	padding: 8px 0 16px;
+}
+
+.contrib-carousel-track {
+	display: flex;
+	gap: var(--tile-gap);
+	transform: translateX(calc(var(--page-start, 0) * (var(--tile-w) + var(--tile-gap)) * -1));
+	/* Carousel paging slide speed — bump this duration to slow it further. */
+	transition: transform 1.5s ease;
+}
+
+.contrib-arrow {
+	flex: 0 0 auto;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: 1px solid var(--color-border);
+	background: var(--color-bg-alt);
+	color: var(--color-text);
+	font-size: 22px;
+	line-height: 1;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition:
+		background 0.15s ease,
+		transform 0.12s ease;
+}
+
+.contrib-arrow:hover {
+	background: var(--color-border);
+	transform: scale(1.08);
+}
+
+.contrib-card {
+	flex: 0 0 200px;
+	height: 120px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	/* Card fill matches the border color (no lighter card variant) */
+	background: var(--color-border);
+	color: var(--color-text);
+	cursor: pointer;
+	text-align: left;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 6px;
+	position: relative;
+	overflow: hidden;
+	font: inherit;
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		border-color 0.18s ease;
+}
+
+/* Color accent strip at the top of each card */
+.contrib-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 8px;
+	background: var(--card-color);
+}
+
+.contrib-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-lg);
+}
+
+.contrib-card.is-selected {
+	border-color: var(--card-color);
+	box-shadow: 0 0 0 2px var(--card-color);
+}
+
+/* Slide each card in from the side once the roster has loaded. `backwards`
+   fill holds the start state during the stagger delay, then releases so the
+   base styles (and hover transforms) take over once the animation ends. */
+.contrib-card-enter {
+	/* On-load slide-in speed — bump this duration to slow it further. */
+	animation: contrib-card-in 0.6s ease backwards;
+}
+
+@keyframes contrib-card-in {
+	from {
+		opacity: 0;
+		transform: translateX(-40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* A freshly created card grows in from zero width, sliding the cards after it
+   (and the "New Project" tile) smoothly over to make room. */
+.contrib-card-created {
+	animation: contrib-card-grow 0.5s ease backwards;
+}
+
+@keyframes contrib-card-grow {
+	from {
+		opacity: 0;
+		flex-basis: 0;
+		/* Cancel the flex gap while collapsed so neighbors don't pre-shift */
+		margin-right: calc(var(--tile-gap, 16px) * -1);
+		transform: scale(0.85);
+	}
+	to {
+		opacity: 1;
+		flex-basis: 200px;
+		margin-right: 0;
+		transform: scale(1);
+	}
+}
+
+/* Deleting a project fades + shrinks its card before it's unmounted */
+.contrib-card-removing {
+	animation: contrib-card-out 0.3s ease forwards;
+	pointer-events: none;
+}
+
+@keyframes contrib-card-out {
+	to {
+		opacity: 0;
+		transform: scale(0.85) translateY(8px);
+	}
+}
+
+.contrib-card-name {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.contrib-card-meta {
+	font-size: 13px;
+	color: var(--color-text-muted);
+}
+
+.contrib-card-add {
+	align-items: center;
+	justify-content: center;
+	border-style: dashed;
+	color: var(--color-text-muted);
+}
+
+.contrib-card-add::before {
+	display: none;
+}
+
+.contrib-card-add-plus {
+	font-size: 32px;
+	line-height: 1;
+}
+
+/* ---- New project form ---- */
+.contrib-project-form {
+	position: relative;
+	max-width: var(--max-width);
+	margin: 12px auto 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 48px 16px 16px;
+	background: var(--color-bg-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	animation: contrib-form-in 0.2s ease;
+}
+
+@keyframes contrib-form-in {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* X in the corner of the new-project card to cancel the operation */
+.contrib-form-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: none;
+	background: var(--color-card);
+	color: var(--color-text-muted);
+	font-size: 13px;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		color 0.15s ease;
+}
+
+.contrib-form-close:hover {
+	background: var(--color-border);
+	color: var(--color-text);
+}
+
+/* ---- Status messages ---- */
+.contrib-error {
+	max-width: var(--max-width);
+	margin: 0 auto 16px;
+	padding: 10px 14px;
+	border-radius: var(--radius-sm, 8px);
+	background: rgba(239, 68, 68, 0.12);
+	border: 1px solid rgba(239, 68, 68, 0.4);
+	color: #ef4444;
+}
+
+.contrib-swatches {
+	display: flex;
+	gap: 8px;
+}
+
+.contrib-swatch {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	padding: 0;
+	transition: transform 0.12s ease;
+}
+
+.contrib-swatch:hover {
+	transform: scale(1.12);
+}
+
+.contrib-swatch.is-active {
+	border-color: var(--color-text);
+	transform: scale(1.12);
+}
+
+/* ---- Inputs / buttons ---- */
+.contrib-input {
+	background: var(--color-card);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm, 8px);
+	color: var(--color-text);
+	padding: 10px 12px;
+	font: inherit;
+	font-size: 15px;
+}
+
+.contrib-input:focus {
+	outline: none;
+	border-color: var(--color-accent);
+}
+
+.contrib-input::placeholder {
+	color: var(--color-text-muted);
+}
+
+.contrib-btn {
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+/* ---- Expanding bottom panel ---- */
+.contrib-panel {
+	flex: 1 1 auto;
+	min-height: 0;
+	margin: 0 20px;
+	border-radius: var(--radius-md) var(--radius-md) 0 0;
+	background: var(--panel-color, transparent);
+	/* Collapsed state: zero height, animates open */
+	max-height: 0;
+	opacity: 0;
+	transform: translateY(24px);
+	overflow: hidden;
+	transition:
+		max-height 0.4s ease,
+		opacity 0.3s ease,
+		transform 0.4s ease;
+}
+
+.contrib-panel.is-open {
+	max-height: 100vh;
+	opacity: 1;
+	transform: translateY(0);
+	box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Closing: play an explicit slide-down + fade exit before unmounting */
+.contrib-panel.is-closing {
+	overflow: hidden;
+	box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35);
+	animation: contrib-panel-close 0.35s ease forwards;
+}
+
+@keyframes contrib-panel-close {
+	0% {
+		max-height: 100vh;
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		max-height: 0;
+		opacity: 0;
+		transform: translateY(24px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contrib-panel.is-closing {
+		animation-duration: 0.01ms;
+	}
+}
+
+.contrib-panel-inner {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 24px clamp(20px, 6vw, 80px);
+	/* Translucent dark overlay so text stays readable on any color */
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.32));
+	color: #fff;
+}
+
+.contrib-panel-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.contrib-panel-title {
+	margin: 0;
+	font-size: 32px;
+	color: #fff;
+}
+
+.contrib-panel-close {
+	background: rgba(255, 255, 255, 0.15);
+	border: none;
+	color: #fff;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.contrib-panel-close:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Add entry form ---- */
+.contrib-entry-form {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-bottom: 20px;
+}
+
+/* Description fields grow with their text instead of scrolling */
+textarea.contrib-input {
+	resize: none;
+	overflow: hidden;
+	line-height: 1.4;
+	min-height: 0;
+}
+
+.contrib-entry-form .contrib-input {
+	background: rgba(255, 255, 255, 0.92);
+	color: #1c2333;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contrib-input-hours {
+	flex: 0 0 110px;
+}
+
+.contrib-input-desc {
+	flex: 1 1 auto;
+}
+
+.contrib-entry-form .contrib-btn {
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	color: #fff;
+	border-radius: var(--radius-sm, 8px);
+	padding: 10px 18px;
+	font: inherit;
+	font-weight: 600;
+}
+
+.contrib-entry-form .contrib-btn:hover {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Entries list ---- */
+.contrib-entries {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-right: 4px;
+}
+
+.contrib-entry {
+	display: flex;
+	align-items: flex-start;
+	gap: 18px;
+	width: 100%;
+	padding: 14px 18px;
+	background: rgba(255, 255, 255, 0.12);
+	border-radius: var(--radius-sm, 8px);
+}
+
+.contrib-entry-time {
+	flex: 0 0 80px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	color: #fff;
+}
+
+.contrib-entry-desc {
+	flex: 1 1 auto;
+	color: rgba(0, 0, 0, 0.92);
+	font-weight: 600;
+	overflow-wrap: anywhere;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+/* Plain (non-bullet) lines keep the line breaks the author typed */
+.contrib-entry-text {
+	white-space: pre-wrap;
+}
+
+/* Lines starting with "-" render as a bulleted list */
+.contrib-entry-list {
+	margin: 0;
+	padding-left: 1.25em;
+}
+
+.contrib-entry-list li {
+	white-space: pre-wrap;
+}
+
+.contrib-entry-list li + li {
+	margin-top: 5px;
+}
+
+/* Inline `code` spans parsed out of descriptions get a subtle chip look */
+.contrib-entry-code {
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+	font-size: 0.88em;
+	padding: 0.1em 0.4em;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, 0.14);
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.contrib-empty {
+	color: rgba(255, 255, 255, 0.8);
+	font-style: italic;
+}
+
+/* Entries (and the empty-state line) animate into place on arrival */
+.contrib-entry,
+.contrib-empty {
+	animation: contrib-entry-in 0.28s ease both;
+}
+
+@keyframes contrib-entry-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Deleting an entry fades it out to the side before it's unmounted */
+.contrib-entry-removing {
+	animation: contrib-entry-out 0.28s ease forwards;
+	pointer-events: none;
+}
+
+@keyframes contrib-entry-out {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(40px);
+	}
+}
+
+/* ---- Inline entry editing ---- */
+.contrib-entry-editing {
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.contrib-entry-editing .contrib-input {
+	background: rgba(255, 255, 255, 0.92);
+	color: #1c2333;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+
+.contrib-entry-editing .contrib-btn {
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	color: #fff;
+	box-shadow: none;
+	border-radius: var(--radius-sm, 8px);
+	padding: 8px 14px;
+	font-weight: 600;
+}
+
+.contrib-entry-editing .contrib-btn-ghost {
+	background: transparent;
+}
+
+.contrib-entry-editing .contrib-btn:hover {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+/* Invalid (e.g. negative) hours: red border + ring */
+.contrib-input.is-invalid {
+	border-color: #ef4444;
+	box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+}
+
+/* ---- Hover edit / delete actions ---- */
+.contrib-card-actions {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	gap: 6px;
+	opacity: 0;
+	transform: translateY(-4px);
+	transition:
+		opacity 0.15s ease,
+		transform 0.15s ease;
+}
+
+.contrib-card:hover .contrib-card-actions,
+.contrib-card:focus-within .contrib-card-actions {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.contrib-entry-actions {
+	margin-left: auto;
+	/* Pinned to the top corner even when the description wraps to many lines */
+	align-self: flex-start;
+	display: flex;
+	gap: 6px;
+	opacity: 0;
+	transition: opacity 0.15s ease;
+}
+
+.contrib-entry:hover .contrib-entry-actions,
+.contrib-entry:focus-within .contrib-entry-actions {
+	opacity: 1;
+}
+
+.contrib-icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: none;
+	border-radius: 8px;
+	font-size: 15px;
+	background: rgba(127, 127, 127, 0.18);
+	color: var(--color-text-muted);
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		color 0.15s ease,
+		transform 0.12s ease;
+}
+
+.contrib-icon-btn:hover {
+	transform: translateY(-1px);
+}
+
+.contrib-icon-edit:hover {
+	background: rgba(47, 111, 235, 0.18);
+	color: #2f6feb;
+}
+
+.contrib-icon-delete:hover {
+	background: rgba(239, 68, 68, 0.18);
+	color: #ef4444;
+}
+
+/* Entry action buttons sit on the dark panel, so lighten their resting look */
+.contrib-entry .contrib-icon-btn {
+	background: rgba(255, 255, 255, 0.14);
+	color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- Modals (project edit + delete confirmation) ---- */
+.contrib-modal-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	background: rgba(0, 0, 0, 0.55);
+	animation: contrib-overlay-in 0.15s ease;
+}
+
+@keyframes contrib-overlay-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.contrib-modal {
+	width: 100%;
+	max-width: 420px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 24px;
+	background: var(--color-bg-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-lg);
+	animation: contrib-modal-in 0.18s ease;
+}
+
+@keyframes contrib-modal-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.contrib-modal-title {
+	margin: 0;
+	font-size: 20px;
+	color: var(--color-text);
+}
+
+.contrib-modal-message {
+	margin: 0;
+	line-height: 1.5;
+	color: var(--color-text-muted);
+}
+
+.contrib-modal .contrib-input {
+	width: 100%;
+}
+
+.contrib-modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+}
+
+.contrib-btn-ghost {
+	background: transparent;
+	box-shadow: none;
+}
+
+.contrib-btn-ghost:hover {
+	background: var(--color-border);
+}
+
+.contrib-btn-danger {
+	background: #ef4444;
+	border-color: #ef4444;
+	color: #fff;
+}
+
+.contrib-btn-danger:hover {
+	background: #dc2626;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contrib-entry,
+	.contrib-empty,
+	.contrib-card-enter,
+	.contrib-card-created,
+	.contrib-modal,
+	.contrib-modal-overlay {
+		animation: none;
+	}
+	.contrib-carousel-track {
+		transition: none;
+	}
+	/* Keep removals near-instant but still firing `animationend` so the
+	   element actually unmounts (animation: none would suppress the event). */
+	.contrib-entry-removing {
+		animation: contrib-entry-out 0.01ms forwards;
+	}
+	.contrib-card-removing {
+		animation: contrib-card-out 0.01ms forwards;
+	}
+}
+
+@media (max-width: 640px) {
+	.contrib-entry-form {
+		flex-wrap: wrap;
+	}
+	.contrib-input-hours {
+		flex: 1 1 100%;
+	}
+}

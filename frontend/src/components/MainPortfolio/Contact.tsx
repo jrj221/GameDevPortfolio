@@ -1,5 +1,3 @@
-import "./Portfolio.css";
-
 const Contact = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault(); // Stop page refresh

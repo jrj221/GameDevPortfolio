@@ -1,4 +1,6 @@
 import { useState, ReactNode } from "react";
+import "../../stylesheets/global.css";
+import "../../stylesheets/GameDevPortfolio/GameDevPortfolio.css";
 import GameDevProjectCard from "./GameDevProjectCard";
 
 export interface Project {

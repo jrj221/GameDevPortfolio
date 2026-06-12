@@ -1,5 +1,3 @@
-import "./Portfolio.css";
-
 const Skills = () => {
 	return (
 		<section className="section container" id="skills">

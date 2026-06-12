@@ -1,10 +1,11 @@
-import "./Portfolio.css"; // Duplicated in other components for now
-import Education from "./Education";
-import Experience from "./Experience";
+import "../stylesheets/global.css";
+import "../stylesheets/MainPortfolio/MainPortfolio.css";
+import Education from "./MainPortfolio/Education";
+import Experience from "./MainPortfolio/Experience";
 import Header from "./Header";
-import Projects from "./Projects";
-import Skills from "./Skills";
-import Contact from "./Contact";
+import Projects from "./MainPortfolio/Projects";
+import Skills from "./MainPortfolio/Skills";
+import Contact from "./MainPortfolio/Contact";
 
 const Portfolio = () => {
 	return (

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./Portfolio.css";
 
 const Header = () => {
 	return (

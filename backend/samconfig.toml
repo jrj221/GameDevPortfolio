@@ -1,0 +1,11 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "gamedevportfolio-backend"
+capabilities = ["CAPABILITY_NAMED_IAM"]
+resolve_s3 = true
+confirm_changeset = false
+disable_rollback = false
+
+[default.global.parameters]
+region = "us-east-1"

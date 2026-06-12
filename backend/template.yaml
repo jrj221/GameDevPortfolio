@@ -1,0 +1,253 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: GameDevPortfolio backend — API Gateway + Lambda + DynamoDB
+
+Globals:
+  Function:
+    Runtime: nodejs22.x
+    Timeout: 10
+    MemorySize: 256
+    CodeUri: .
+    Handler: placeholder # overridden per function
+    Environment:
+      Variables:
+        DB_DRIVER: dynamo
+        AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+        CONTRIBUTIONS_TABLE: !Ref ContributionsTable
+
+Resources:
+
+  # ── DynamoDB ─────────────────────────────────────────────────────────────────
+
+  ContributionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ProjectContributions
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: projectName
+          AttributeType: S
+        - AttributeName: contributionId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: projectName
+          KeyType: HASH
+        - AttributeName: contributionId
+          KeyType: RANGE
+
+  # ── Shared IAM role ───────────────────────────────────────────────────────────
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: GameDevPortfolioLambdaRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource: !GetAtt ContributionsTable.Arn
+
+  # ── API Gateway ───────────────────────────────────────────────────────────────
+
+  PortfolioApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: GameDevPortfolioApi
+      StageName: prod
+      Cors:
+        AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'*'"
+
+  # ── Lambda functions ──────────────────────────────────────────────────────────
+
+  ListProjectsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-ListProjects
+      Handler: dist/handlers/projects.listProjects
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /projects
+            Method: GET
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/projects.ts
+
+  CreateProjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-CreateProject
+      Handler: dist/handlers/projects.createProject
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /projects
+            Method: POST
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/projects.ts
+
+  UpdateProjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-UpdateProject
+      Handler: dist/handlers/projects.updateProject
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /projects/{projectName}
+            Method: PUT
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/projects.ts
+
+  DeleteProjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-DeleteProject
+      Handler: dist/handlers/projects.deleteProject
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /projects/{projectName}
+            Method: DELETE
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/projects.ts
+
+  ListContributionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-ListContributions
+      Handler: dist/handlers/contributions.listContributions
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /contributions/{projectName}
+            Method: GET
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/contributions.ts
+
+  CreateContributionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-CreateContribution
+      Handler: dist/handlers/contributions.createContribution
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /contributions/{projectName}
+            Method: POST
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/contributions.ts
+
+  UpdateContributionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-UpdateContribution
+      Handler: dist/handlers/contributions.updateContribution
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /contributions/{projectName}/{contributionId}
+            Method: PUT
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/contributions.ts
+
+  DeleteContributionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GameDevPortfolio-DeleteContribution
+      Handler: dist/handlers/contributions.deleteContribution
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PortfolioApi
+            Path: /contributions/{projectName}/{contributionId}
+            Method: DELETE
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: es2022
+        EntryPoints:
+          - src/handlers/contributions.ts
+
+Outputs:
+  ApiBaseUrl:
+    Description: API Gateway base URL — paste this into frontend/.env as VITE_API_BASE_URL
+    Value: !Sub "https://${PortfolioApi}.execute-api.${AWS::Region}.amazonaws.com/prod"

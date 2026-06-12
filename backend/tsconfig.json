@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    // rootDir is the repo root so ../shared can be imported; SAM bundles Lambdas
+    // from src/ via esbuild, so this tsc output (dist, gitignored) is build-check only.
+    "rootDir": "..",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": ["src", "../shared"]
+}

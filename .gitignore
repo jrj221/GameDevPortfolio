@@ -38,3 +38,11 @@ dist-ssr
 *.exe
 *.bin
 *.unitypackage
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# SAM build output
+.aws-sam

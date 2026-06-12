@@ -1,9 +1,10 @@
 import Portfolio from "./components/Portfolio";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ScrollController from "./ScrollController";
-import GameDevProjects from "./components/GameDevProjects";
-import BudgetAppPrivacyPolicy from "./components/BudgetAppPrivacyPolicy";
-import ScorekeeperAppPrivacyPolicy from "./components/ScorekeeperAppPrivacyPolicy";
+import GameDevProjects from "./components/GameDevPortfolio/GameDevProjects";
+import BudgetAppPrivacyPolicy from "./components/PrivacyPolicies/BudgetAppPrivacyPolicy";
+import ScorekeeperAppPrivacyPolicy from "./components/PrivacyPolicies/ScorekeeperAppPrivacyPolicy";
+import ProjectContributions from "./components/ContributionsProject/ProjectContributions";
 import { useEffect } from "react";
 
 /**
@@ -29,6 +30,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Portfolio />} />
 				<Route path="/gamedev" element={<GameDevProjects />} />
+					<Route path="/contributions" element={<ProjectContributions />} />
 				<Route path="/budget_app/privacy_policy" element={<BudgetAppPrivacyPolicy />} />
 				<Route path="/scorekeeper_app/privacy_policy" element={<ScorekeeperAppPrivacyPolicy />} />
 

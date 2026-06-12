@@ -1,0 +1,196 @@
+/* ===== MainPortfolio page: hero, education, experience, skills, contact ===== */
+
+/* Hero */
+.hero-section {
+	padding: 80px 0 40px;
+	display: grid;
+	gap: 32px;
+}
+.hero-title {
+	font-size: clamp(32px, 6vw, 52px);
+	margin: 0;
+	line-height: 1.1;
+}
+.hero-subtitle {
+	color: var(--color-text-muted);
+	max-width: 720px;
+	margin: 12px 0 0;
+}
+
+/* Education */
+.education-card {
+	display: grid;
+	grid-template-columns: 1fr 3fr; /* left logo, right details */
+	gap: 10px;
+	background: var(--color-card);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-lg);
+	align-items: center;
+}
+
+.edu-logo {
+	background: #14315a;
+	border-top-left-radius: var(--radius-md);
+	border-bottom-left-radius: var(--radius-md);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.edu-logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain; /* or 'cover' if you want it to crop/fill */
+	display: block;
+}
+
+.edu-details {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 20px;
+}
+
+.edu-school {
+	margin: 0;
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--color-text);
+}
+
+.edu-degree {
+	margin: 0;
+	font-weight: 600;
+	color: var(--color-text-muted);
+}
+
+.edu-location {
+	margin: 0;
+	padding-bottom: 5px;
+	color: var(--color-text-muted);
+	border-bottom: 1px solid var(--color-border);
+}
+
+.edu-coursework {
+	color: var(--color-text-muted);
+	line-height: 1.4;
+}
+
+.edu-coursework strong {
+	color: var(--color-text);
+	display: block;
+	margin-bottom: 4px;
+}
+
+.edu-coursework ul {
+	margin: 0;
+	padding-left: 20px; /* indent list */
+}
+
+.edu-coursework li {
+	margin-bottom: 4px;
+}
+
+.edu-gpa,
+.edu-coursework,
+.edu-awards,
+.edu-clubs {
+	margin: 0;
+	color: var(--color-text-muted);
+	line-height: 1.4;
+}
+
+.edu-gpa strong,
+.edu-coursework strong,
+.edu-awards strong,
+.edu-clubs strong {
+	color: var(--color-text);
+}
+
+/* Experience */
+.experience-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.experience-card {
+	display: grid;
+	grid-template-columns: 2fr 1fr; /* left details, right image */
+	background: var(--color-card);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-lg);
+	overflow: hidden;
+}
+
+.exp-details-block {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.exp-company {
+	color: var(--color-text-muted);
+	font-weight: 600;
+	margin: 0;
+}
+
+.exp-details {
+	margin: 0;
+	padding-left: 18px;
+	color: var(--color-text-muted);
+}
+.exp-details li {
+	margin-bottom: 6px;
+}
+
+.exp-logo {
+	background: var(--color-bg-alt); /* distinct background for logo chunk */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.exp-logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain; /* keeps logo aspect ratio */
+}
+
+/* Skills */
+.skills-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+.skill-item {
+	padding: 10px 14px;
+	border-radius: 10px;
+	border: 1px solid var(--color-border);
+	background: var(--color-card);
+	color: var(--color-text);
+	font-weight: 600;
+}
+
+/* Contact */
+.contact-form {
+	display: grid;
+	gap: 14px;
+	max-width: 640px;
+}
+.form-input {
+	padding: 12px 14px;
+	border-radius: 10px;
+	border: 1px solid var(--color-border);
+	background: var(--color-card);
+	color: var(--color-text);
+}
+textarea.form-input {
+	min-height: 120px;
+	resize: vertical;
+}

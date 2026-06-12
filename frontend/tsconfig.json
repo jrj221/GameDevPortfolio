@@ -1,19 +1,24 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "allowJs": true, 
-    "checkJs": false, 
-     "noEmit": false,
+    "allowJs": true,
+    "checkJs": false,
+    // Vite performs the actual build; this tsconfig is type-checking only, so
+    // noEmit lets us include ../shared without a rootDir/output-layout conflict.
+     "noEmit": true,
 
     // File Layout
-    "rootDir": "src",
     "outDir": "dist",
+    // rootDir spans the repo root so the shared/ workspace (included below for
+    // type-checking) isn't flagged as outside the source root.
+    "rootDir": "..",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "target": "esnext",
-    "types": [ "node" ],
+    "types": [ "node", "vite/client" ],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -43,5 +48,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": [ "src", "src/scripts/BucketUpload.ts" ]
+  "include": [ "src", "src/scripts/BucketUpload.ts", "../shared" ]
 }
