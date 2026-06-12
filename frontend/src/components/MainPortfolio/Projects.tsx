@@ -1,3 +1,23 @@
+import type { ReactNode } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faAppStore, faItchIo } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+
+// Pick a brand icon based on where the link points
+const linkIconFor = (href: string) => {
+	if (href.includes("github.com")) return faGithub;
+	if (href.includes("apps.apple.com")) return faAppStore;
+	if (href.includes("itch.io")) return faItchIo;
+	return faArrowUpRightFromSquare;
+};
+
+const ProjectLink = ({ href, children }: { href: string; children: ReactNode }) => (
+	<a className="btn" href={href} target="_blank" rel="noopener">
+		<FontAwesomeIcon icon={linkIconFor(href)} />
+		{children}
+	</a>
+);
+
 const Projects = () => {
 	return (
 		<section className="section container" id="projects">
@@ -16,9 +36,7 @@ const Projects = () => {
 						<span className="project-tag">Javalin</span>
 					</div>
 					<div className="project-actions">
-						<a className="btn" href="https://github.com/jrj221/chess" target="_blank" rel="noopener">
-							View on GitHub
-						</a>
+						<ProjectLink href="https://github.com/jrj221/chess">View on GitHub</ProjectLink>
 					</div>
 				</article>
 
@@ -34,14 +52,7 @@ const Projects = () => {
 						<span className="project-tag">Pillow</span>
 					</div>
 					<div className="project-actions">
-						<a
-							className="btn"
-							href="https://github.com/jrj221/ImageCompression"
-							target="_blank"
-							rel="noopener"
-						>
-							View on GitHub
-						</a>
+						<ProjectLink href="https://github.com/jrj221/ImageCompression">View on GitHub</ProjectLink>
 					</div>
 				</article>
 
@@ -59,9 +70,7 @@ const Projects = () => {
 						<span className="project-tag">Express</span>
 					</div>
 					<div className="project-actions">
-						<a className="btn" href="https://github.com/jrj221/CougsConnect" target="_blank" rel="noopener">
-							View on GitHub
-						</a>
+						<ProjectLink href="https://github.com/jrj221/CougsConnect">View on GitHub</ProjectLink>
 					</div>
 				</article>
 
@@ -77,21 +86,51 @@ const Projects = () => {
 						<span className="project-tag">JavaScript</span>
 					</div>
 					<div className="project-actions">
-						<a
-							className="btn"
-							href="https://github.com/jrj221/TicTacToeSquared"
-							target="_blank"
-							rel="noopener"
-						>
-							View on GitHub
-						</a>
-						<a className="btn" href="https://tictactoe.jackjohnson.click" target="_blank">
-							View in Browser
-						</a>
+						<ProjectLink href="https://github.com/jrj221/TicTacToeSquared">View on GitHub</ProjectLink>
+						<ProjectLink href="https://tictactoe.jackjohnson.click">View in Browser</ProjectLink>
 					</div>
 				</article>
 
 				<article className="project-card">
+					<img src="media/BudgetApp/budget_app_icon.png" alt="Money & Me | iOS Budgeting App" />
+					<h3>Money & Me | iOS Budgeting App</h3>
+					<p>
+						An iOS app designed for teens and young adults to help them track spending, make financial
+						goals, and manage budgets.
+					</p>
+					<div className="project-tags">
+						<span className="project-tag">React Expo</span>
+						<span className="project-tag ai-tag">Made with AI</span>
+					</div>
+					<div className="project-actions">
+						<ProjectLink href="https://apps.apple.com/us/app/money-me/id6769168491">
+							View in App Store
+						</ProjectLink>
+					</div>
+				</article>
+
+				<article className="project-card">
+					<img
+						src="media/ScorekeeperApp/scorekeeper_app_icon.png"
+						alt="What's the Score? | iOS Scorekeeping App"
+					/>
+					<h3>What's the Score? | iOS Scorekeeping App</h3>
+					<p>
+						An iOS app designed to help groups keep track of game scores, with extra feature like game
+						templates, dice, timers, and historical player stats.
+					</p>
+					<div className="project-tags">
+						<span className="project-tag">React Expo</span>
+						<span className="project-tag ai-tag">Made with AI</span>
+					</div>
+					<div className="project-actions">
+						<ProjectLink href="https://apps.apple.com/us/app/whats-the-score-game-night/id6772616074">
+							View in App Store
+						</ProjectLink>
+					</div>
+				</article>
+
+				{/* <article className="project-card">
 					<img src="media/GeneralPortolio/agenda.png" alt="Agenda" />
 					<h3>Agenda</h3>
 					<p>
@@ -101,14 +140,12 @@ const Projects = () => {
 					<div className="project-tags">
 						<span className="project-tag">React</span>
 						<span className="project-tag">TypeScript</span>
-						<span className="project-tag">Built with AI</span>
+						<span className="project-tag ai-tag">Built with AI</span>
 					</div>
 					<div className="project-actions">
-						<a className="btn" href="/agenda/" target="_blank">
-							View in Browser
-						</a>
+						<ProjectLink href="/agenda/">View in Browser</ProjectLink>
 					</div>
-				</article>
+				</article> */}
 			</div>
 		</section>
 	);
