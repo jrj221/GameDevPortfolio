@@ -4,6 +4,8 @@ import ScrollController from "./ScrollController";
 import GameDevProjects from "./components/GameDevPortfolio/GameDevProjects";
 import BudgetAppPrivacyPolicy from "./components/PrivacyPolicies/BudgetAppPrivacyPolicy";
 import ScorekeeperAppPrivacyPolicy from "./components/PrivacyPolicies/ScorekeeperAppPrivacyPolicy";
+import ThenAndNowAppPrivacyPolicy from "./components/PrivacyPolicies/ThenAndNowAppPrivacyPolicy";
+import EVStopTrackerPrivacyPolicy from "./components/PrivacyPolicies/EVStopTrackerPrivacyPolicy";
 import ProjectContributions from "./components/ContributionsProject/ProjectContributions";
 import { useEffect } from "react";
 
@@ -30,9 +32,11 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Portfolio />} />
 				<Route path="/gamedev" element={<GameDevProjects />} />
-					<Route path="/contributions" element={<ProjectContributions />} />
+				<Route path="/contributions" element={<ProjectContributions />} />
 				<Route path="/budget_app/privacy_policy" element={<BudgetAppPrivacyPolicy />} />
 				<Route path="/scorekeeper_app/privacy_policy" element={<ScorekeeperAppPrivacyPolicy />} />
+				<Route path="/then_and_now_app/privacy_policy" element={<ThenAndNowAppPrivacyPolicy />} />
+				<Route path="/ev_stop_tracker/privacy_policy" element={<EVStopTrackerPrivacyPolicy />} />
 
 				{/* Sub-projects deployed to S3 sub-folders */}
 				<Route path="/agenda" element={<HardRedirect to="/agenda/" />} />
