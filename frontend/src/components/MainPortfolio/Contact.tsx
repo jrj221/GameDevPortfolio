@@ -1,29 +1,38 @@
+import { useState } from "react";
+
+type SubmitStatus = "idle" | "success" | "error";
+
 const Contact = () => {
+	const [status, setStatus] = useState<SubmitStatus>("idle");
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault(); // Stop page refresh
 		const form = e.currentTarget;
 
 		const formData = new FormData(form);
-
-		const data = {
-			name: formData.get("name"),
-			email: formData.get("email"),
-			message: formData.get("message"),
-		};
+		formData.append("access_key", "7ecc7965-ead4-4b75-922c-1eef7095a338");
 
 		try {
-			await fetch(
-				"https://script.google.com/macros/s/AKfycbxMmUvKrrXq-mXgDPkpCEHeGUslF247HKCpiifTX-841OgvXr2fm_17kffDojPYF-xM/exec",
-				{
-					method: "POST",
-					mode: "no-cors",
-					body: JSON.stringify(data),
-				}
-			);
+			const response = await fetch("https://api.web3forms.com/submit", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+				},
+				body: formData,
+			});
 
-			form.reset(); // Clears the form
+			const result = await response.json();
+
+			if (result.success) {
+				form.reset(); // Clears the form
+				setStatus("success");
+			} else {
+				console.error(result);
+				setStatus("error");
+			}
 		} catch (error) {
 			console.error(error);
+			setStatus("error");
 		}
 	};
 
@@ -37,6 +46,14 @@ const Contact = () => {
 				<button className="btn btn-primary" type="submit">
 					Send message
 				</button>
+				{status === "success" && (
+					<p className="form-status form-status--success">Message sent! I'll get back to you soon.</p>
+				)}
+				{status === "error" && (
+					<p className="form-status form-status--error">
+						Something went wrong sending your message. Please try again later.
+					</p>
+				)}
 			</form>
 		</section>
 	);
