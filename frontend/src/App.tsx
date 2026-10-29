@@ -6,6 +6,7 @@ import BudgetAppPrivacyPolicy from "./components/PrivacyPolicies/BudgetAppPrivac
 import ScorekeeperAppPrivacyPolicy from "./components/PrivacyPolicies/ScorekeeperAppPrivacyPolicy";
 import ThenAndNowAppPrivacyPolicy from "./components/PrivacyPolicies/ThenAndNowAppPrivacyPolicy";
 import EVStopTrackerPrivacyPolicy from "./components/PrivacyPolicies/EVStopTrackerPrivacyPolicy";
+import SandCollapsePrivacyPolicy from "./components/PrivacyPolicies/SandCollapsePrivacyPolicy";
 import ProjectContributions from "./components/ContributionsProject/ProjectContributions";
 import { useEffect } from "react";
 
@@ -37,6 +38,7 @@ function App() {
 				<Route path="/scorekeeper_app/privacy_policy" element={<ScorekeeperAppPrivacyPolicy />} />
 				<Route path="/then_and_now_app/privacy_policy" element={<ThenAndNowAppPrivacyPolicy />} />
 				<Route path="/ev_stop_tracker/privacy_policy" element={<EVStopTrackerPrivacyPolicy />} />
+				<Route path="/sand_collapse/privacy_policy" element={<SandCollapsePrivacyPolicy />} />
 
 				{/* Sub-projects deployed to S3 sub-folders */}
 				<Route path="/agenda" element={<HardRedirect to="/agenda/" />} />
