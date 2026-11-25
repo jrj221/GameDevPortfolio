@@ -68,6 +68,7 @@ const contentTypeMap = {
     ".mov": "video/quicktime",
     ".webm": "video/webm",
     ".json": "application/json",
+    ".txt": "text/plain",
 };
 function getContentType(filename) {
     for (const ext in contentTypeMap) {
